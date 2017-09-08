@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>at</groupId>
-    <artifactId>atex</artifactId>
+    <artifactId>i398</artifactId>
     <version>0.2</version>
     <packaging>jar</packaging>
 
-    <name>atex</name>
+    <name>i398</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
