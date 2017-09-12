@@ -2,7 +2,6 @@ package mockito;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
