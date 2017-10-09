@@ -10,7 +10,7 @@ public class Refactoring {
     }
 
     // 1b
-    public void findFilledOrders(List<Order> orderList) {
+    public void getFilledOrders(List<Order> orderList) {
         for (Order order : orders) {
             if (order.isFilled()) {
                 orderList.add(order);
@@ -48,7 +48,7 @@ public class Refactoring {
     // 3
     public boolean isSmallOrder() {
         double orderTotal = order.getTotal();
-        return (orderTotal > 100);
+        return orderTotal > 100;
     }
 
     // 4
@@ -100,7 +100,7 @@ public class Refactoring {
     // //////////////////////////////////////////////////////////////////////////
 
     // Helper fields and methods.
-    // They are here just to make code compile
+    // They are here just to make the code compile
 
     private List<String> items = Arrays.asList("1", "2", "3", "4");
     private int hourRate = 5;
@@ -112,7 +112,7 @@ public class Refactoring {
 
     void justACaller() {
         getInvoiceNumber();
-        findFilledOrders(null);
+        getFilledOrders(null);
     }
 
     private void printValue(double total) {
