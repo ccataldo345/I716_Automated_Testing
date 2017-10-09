@@ -3,7 +3,6 @@ package refactoring;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-
 import org.junit.jupiter.api.Test;
 
 public class RefactoringTests {
@@ -11,7 +10,7 @@ public class RefactoringTests {
     private Refactoring sut = new Refactoring();
 
     @Test
-    public void getsItemsAsHtml() throws Exception {
+    public void getsItemsAsHtml() {
         assertThat(sut.getItemsAsHtml(), is(
                 "<ul><li>1</li><li>2</li><li>3</li><li>4</li></ul>"));
     }
