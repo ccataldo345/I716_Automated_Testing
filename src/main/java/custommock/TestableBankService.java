@@ -5,34 +5,36 @@ import common.Money;
 
 public class TestableBankService implements BankService {
 
+    @Override
+    public void withdraw(Money money, String fromAccount) {
+        System.out.println("withdraw called with: " + money + " and " + fromAccount);
+
+        // here the arguments (money and fromAccount) must be remembered
+
+        throw new IllegalStateException("not implemented yet");
+    }
+
+    @Override
+    public void deposit(Money money, String toAccount) {
+        System.out.println("deposit called with: " + money + " and " + toAccount);
+
+        // here the arguments (money and toAccount) must be remembered
+
+        throw new IllegalStateException("not implemented yet");
+    }
+
     public boolean wasWithdrawCalledWith(Money money, String account) {
 
         // here you have to compare current arguments with the ones remembered
 
-        throw new IllegalStateException("not implemented");
+        throw new IllegalStateException("not implemented yet");
     }
 
     public boolean wasDepositCalledWith(Money money, String account) {
 
         // here you have to compare current arguments with the ones remembered
 
-        throw new IllegalStateException("not implemented");
-    }
-
-    @Override
-    public void withdraw(Money money, String fromAccount) {
-        System.out.println("credit: " + money + " - " + fromAccount);
-
-        // here the arguments (money and fromAccount) must be remembered
-
-    }
-
-    @Override
-    public void deposit(Money money, String toAccount) {
-        System.out.println("debit: " + money + " - " + toAccount);
-
-        // here the arguments (money and toAccount) must be remembered
-
+        throw new IllegalStateException("not implemented yet");
     }
 
     @Override
@@ -64,10 +66,10 @@ public class TestableBankService implements BankService {
     }
 
     public boolean wasWithdrawCalled() {
-        // This method should say whether credit() method was called
+        // This method should say whether withdraw() method was called
         // (without considering arguments)
 
-        throw new IllegalStateException("not implemented");
+        throw new IllegalStateException("not implemented yet");
     }
 
 }
