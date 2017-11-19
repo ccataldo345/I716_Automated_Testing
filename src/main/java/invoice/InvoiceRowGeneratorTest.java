@@ -1,10 +1,8 @@
 package invoice;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatcher;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -13,8 +11,8 @@ import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
-import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
 public class InvoiceRowGeneratorTest {
 
@@ -52,7 +50,11 @@ public class InvoiceRowGeneratorTest {
     public void testingDaoWithMockitoAndMatcherExample() {
         dao.save(new InvoiceRow(new BigDecimal(1), LocalDate.now()));
 
-        verify(dao).save(argThat(getMatcherForAmount(1)));
+        verify(dao).save(argThat(row -> row.amount.intValue() == 1));
+
+        verify(dao).save(getMatcherForAmount(1));
+
+        verify(dao).save(getMatcherForAmountWithMessage(1));
     }
 
     @BeforeEach
@@ -60,24 +62,29 @@ public class InvoiceRowGeneratorTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    private Matcher<InvoiceRow> getMatcherForAmount(final Integer amount) {
+    private InvoiceRow getMatcherForAmount(final Integer amount) {
         // Example matcher for testing that argument has certain amount.
 
-        return new TypeSafeMatcher<InvoiceRow>() {
+        return argThat(row -> row.amount.intValue() == amount);
+    }
+
+    private InvoiceRow getMatcherForAmountWithMessage(final Integer amount) {
+        // Example matcher for testing that argument has certain amount.
+        // With message
+
+        return argThat(new ArgumentMatcher<InvoiceRow>() {
 
             @Override
-            protected boolean matchesSafely(InvoiceRow item) {
-                return amount.equals(item.amount.intValue());
+            public boolean matches(InvoiceRow row) {
+                return amount.equals(row.amount.intValue());
             }
 
             @Override
-            public void describeTo(Description description) {
-                String message = MessageFormat.format(
+            public String toString() {
+                return MessageFormat.format(
                         "InvoiceRow with amount {0}", amount);
-
-                description.appendText(message);
             }
-        };
+        });
     }
 
     private LocalDate asDate(String string) {
