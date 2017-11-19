@@ -63,7 +63,7 @@ public class OrderServiceTest {
 
             @Override
             public List<Order> getOrders() {
-                return Arrays.asList(order1, order2, order3);
+                return Collections.unmodifiableList(Arrays.asList(order1, order2, order3));
             }
 
         };
