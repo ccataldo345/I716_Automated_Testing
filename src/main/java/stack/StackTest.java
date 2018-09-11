@@ -14,27 +14,25 @@ public class StackTest {
         assertThat(stack.getSize(), is(0));
     }
 
-/*
     @Test
     public void pushTwoElements_checkStackSizeIsTwo() {
         Stack stack = new Stack(100);
-        Stack.push(1);
-        Stack.push(2);
+        stack.push(1);
+        stack.push(2);
 
         assertThat(stack.getSize(), is(2));
     }
-
+/*
     @Test
     public void pushTwoElementPopTwoElements_checkStackSizeIsZero() {
         Stack stack = new Stack(100);
-        Stack.push(1);
-        Stack.push(2);
-        Stack.pop;
-        Stack.pop;
+        stack.push(1);
+        stack.push(2);
+        stack.pop;
+        stack.pop;
 
         assertThat(stack.getSize(), is(0));
     }
 */
-
 
 }
