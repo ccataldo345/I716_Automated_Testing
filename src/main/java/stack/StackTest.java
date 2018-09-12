@@ -1,9 +1,11 @@
 package stack;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StackTest {
 
@@ -37,15 +39,15 @@ public class StackTest {
         assertThat(stack.getSize(), is(0));
     }
 
-/*
     @Test
-
     public void pushTwoElementPopTwoElements_checkElementsOrder() {
         // - create stack, push two elements, pop two elements and check that these are the elements pushed before
         // and the order is correct.
         Stack stack = new Stack(100);
-        int pushFirst = stack.push(1);
-        int pushSecond = stack.push(2);
+        stack.push(1);
+        int pushFirst = stack.peak();
+        stack.push(2);
+        int pushSecond = stack.peak();
         int popFirst = stack.pop();
         int popSecond = stack.pop();
 
@@ -59,7 +61,6 @@ public class StackTest {
         assertThat(pushSecond, is(popFirst));
 
     }
-*/
 
     @Test
     public void pushTwoElement_checkPeakElementIsLastPush() {
@@ -80,6 +81,22 @@ public class StackTest {
         stack.peak();
 
         assertThat(stack.getSize(), is(2));
+    }
+
+    @Test
+    public void noPushPop_checkThrowsIllegalStateException() {
+        // - create stack, pop one element and check that stack throws IllegalStateException.
+        Stack stack = new Stack(100);
+
+        assertThrows(IllegalStateException.class, () -> stack.pop());   // throws ISE when stack.pop() is executed
+    }
+
+    @Test
+    public void noPushPeak_checkThrowsIllegalStateException() {
+        // - create stack, peek at the topmost element and check that stack throws IllegalStateException.
+        Stack stack = new Stack(100);
+
+        assertThrows(IllegalStateException.class, () -> stack.peak());
     }
 
 }

@@ -23,12 +23,18 @@ public class Stack {
     }
 
     public Integer pop() {
+        if (size == 0) {
+            throw new IllegalStateException();  // throw new ISE
+        }
         size--;
         // System.out.println(stack[size]);
         return stack[size];
     }
 
     public Integer peak() {
+        if (size == 0) {
+            throw new IllegalStateException();  // throw new ISE
+        }
         return peak;
     }
 
