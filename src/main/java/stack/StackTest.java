@@ -18,7 +18,7 @@ public class StackTest {
     }
 
     @Test
-    public void pushTwoElements_checkStackSizeIsTwo() {
+    public void pushIncrementsStackSize() {
         // - create stack, push two elements and check that it contains two elements (size is 2).
         Stack stack = new Stack(100);
         stack.push(1);
@@ -28,7 +28,7 @@ public class StackTest {
     }
 
     @Test
-    public void pushTwoElementPopTwoElements_checkStackSizeIsZero() {
+    public void popDecreasesStackSize() {
         // - create stack, push two elements, pop two elements and check that it contains zero elements.
         Stack stack = new Stack(100);
         stack.push(1);
@@ -40,7 +40,7 @@ public class StackTest {
     }
 
     @Test
-    public void pushTwoElementPopTwoElements_checkElementsOrder() {
+    public void lastElementPushedIsFirstPopped() {
         // - create stack, push two elements, pop two elements and check that these are the elements pushed before
         // and the order is correct.
         Stack stack = new Stack(100);
@@ -63,7 +63,7 @@ public class StackTest {
     }
 
     @Test
-    public void pushTwoElement_checkPeakElementIsLastPush() {
+    public void peakIsLastPushedElement() {
         // - create stack, push two elements, peek at the topmost element and check that it is the last one pushed.
         Stack stack = new Stack(100);
         stack.push(1);
@@ -73,7 +73,7 @@ public class StackTest {
     }
 
     @Test
-    public void pushTwoElementPeak_checkStackSizeIsTwo() {
+    public void peakDoesNotDecreaseStackSize() {
         // - create stack, push two elements, peek at the topmost element and check that the stack contains two elements.
         Stack stack = new Stack(100);
         stack.push(1);
@@ -84,7 +84,7 @@ public class StackTest {
     }
 
     @Test
-    public void noPushPop_checkThrowsIllegalStateException() {
+    public void emptyStackPopThrows() {
         // - create stack, pop one element and check that stack throws IllegalStateException.
         Stack stack = new Stack(100);
 
@@ -92,7 +92,7 @@ public class StackTest {
     }
 
     @Test
-    public void noPushPeak_checkThrowsIllegalStateException() {
+    public void emptyStackPeakThrows() {
         // - create stack, peek at the topmost element and check that stack throws IllegalStateException.
         Stack stack = new Stack(100);
 
