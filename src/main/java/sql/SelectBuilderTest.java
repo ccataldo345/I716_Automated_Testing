@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class SelectBuilderTest {
 
     @Test
-    public void test1() {
+    public void selectOneColumn() {
         SelectBuilder b = new SelectBuilder();
         b.column("a");
         b.from("t");
@@ -20,7 +20,7 @@ public class SelectBuilderTest {
     }
 
     @Test
-    public void test2() {
+    public void selectMultipleColumns() {
         SelectBuilder b = new SelectBuilder();
         b.columns("a", "b");
         b.from("t");
@@ -29,7 +29,7 @@ public class SelectBuilderTest {
     }
 
     @Test
-    public void test3() {
+    public void selectMultipleColumnsAlsoAfterTable() {
         SelectBuilder b = new SelectBuilder();
         b.columns("a", "b");
         b.from("t");
@@ -39,16 +39,19 @@ public class SelectBuilderTest {
     }
 
     @Test
-    public void test4() {
+    public void selectConditionParameters() {
         SelectBuilder b = new SelectBuilder();
         b.column("a");
         b.from("t");
         b.where("id = ?", 1);
 
         assertThat(b.getSql(), is("select a from t where id = ?"));
+        // System.out.println(b.getSql());
         assertThat(b.getParameters(), is(asList(1)));
 
     }
+
+    /*
 
     @Test
     public void test5() {
@@ -118,5 +121,7 @@ public class SelectBuilderTest {
 
         assertThat(b.getSql(), is("select a from (select b from t)"));
     }
+
+    */
 }
 
