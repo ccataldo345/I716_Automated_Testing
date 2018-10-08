@@ -26,6 +26,7 @@ public class SelectBuilderTest {
         b.from("t");
 
         assertThat(b.getSql(), is("select a, b from t"));
+        System.out.println(b.getSql());
     }
 
     @Test
@@ -36,25 +37,26 @@ public class SelectBuilderTest {
         b.columns("c");
 
         assertThat(b.getSql(), is("select a, b, c from t"));
+        System.out.println(b.getSql());
     }
 
     @Test
-    public void selectConditionParameters() {
+    public void selectOneConditionParameters() {
         SelectBuilder b = new SelectBuilder();
         b.column("a");
         b.from("t");
         b.where("id = ?", 1);
 
         assertThat(b.getSql(), is("select a from t where id = ?"));
-        // System.out.println(b.getSql());
+        System.out.println(b.getSql());
         assertThat(b.getParameters(), is(asList(1)));
-
+        // asList gives values in array > [1]
+        System.out.println(b.getParameters());
     }
 
-    /*
-
     @Test
-    public void test5() {
+    public void selectMultipleConditionParameters() {
+        //test 05
         SelectBuilder b = new SelectBuilder();
         b.column("a");
         b.from("t");
@@ -63,10 +65,11 @@ public class SelectBuilderTest {
 
         assertThat(b.getSql(),
                 is("select a from t where is_hidden = 1 and deleted_on is null"));
+        System.out.println(b.getSql());
     }
 
     @Test
-    public void test6() {
+    public void discardNullParameter() {
         SelectBuilder b = new SelectBuilder();
         b.column("a");
         b.from("t");
@@ -75,42 +78,51 @@ public class SelectBuilderTest {
         b.eqIfNotNull("c", 3);
 
         assertThat(b.getSql(), is("select a from t where a = ? and c = ?"));
+        System.out.println(b.getSql());
         assertThat(b.getParameters(), is(asList(1, 3)));
+        // asList(1, 3) = [1, 3]
+        System.out.println(b.getParameters());
     }
 
     @Test
-    public void test7() {
+    public void twoParameterAsList() {
         SelectBuilder b = new SelectBuilder();
         b.column("a");
         b.from("t");
         b.in("id", asList(1, 2));
 
         assertThat(b.getSql(), is("select a from t where id in (?, ?)"));
+        System.out.println(b.getSql());
         assertThat(b.getParameters(), is(asList(1, 2)));
+        // asList(1, 2) = [1, 2]
+        System.out.println(b.getParameters());
     }
 
     @Test
-    public void test8() {
+    public void emptyList() {
         SelectBuilder b = new SelectBuilder();
         b.column("a");
         b.from("t");
         b.in("id", Collections.emptyList());
 
         assertThat(b.getSql(), is("select a from t"));
+        System.out.println(b.getSql());
     }
 
     @Test
-    public void test9() {
+    public void leftJoin() {
+        // test 09
         SelectBuilder b = new SelectBuilder();
         b.column("a");
         b.from("t");
         b.leftJoin("u", "u.id = t.u_id");
 
         assertThat(b.getSql(), is("select a from t left join u on u.id = t.u_id"));
+        System.out.println(b.getSql());
     }
 
     @Test
-    public void test10() {
+    public void subSelect() {
         SelectBuilder sub = new SelectBuilder();
         sub.column("b");
         sub.from("t");
@@ -120,8 +132,6 @@ public class SelectBuilderTest {
         b.from(sub);
 
         assertThat(b.getSql(), is("select a from (select b from t)"));
+        System.out.println(b.getSql());
     }
-
-    */
 }
-
