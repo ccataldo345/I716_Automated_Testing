@@ -17,8 +17,8 @@ public class RefactoringTests {
 
     @Test
     public void calculatesWeeklyPayWithOvertime() {
-        assertThat(sut.calculateWeeklyPay(39, true), is(195));
-        assertThat(sut.calculateWeeklyPay(41, true), is(208));
+        assertThat(sut.calculateWeeklyPayWithOvertime(39), is(195));
+        assertThat(sut.calculateWeeklyPayWithOvertime(41), is(208));
 
         // testing new methods:
 
@@ -28,8 +28,8 @@ public class RefactoringTests {
 
     @Test
     public void calculatesWeeklyPayWithoutOvertime() {
-        assertThat(sut.calculateWeeklyPay(39, false), is(195));
-        assertThat(sut.calculateWeeklyPay(41, false), is(205));
+        assertThat(sut.calculateWeeklyPayWithoutOvertime(39), is(195));
+        assertThat(sut.calculateWeeklyPayWithoutOvertime(41), is(205));
 
         // testing new methods:
 
