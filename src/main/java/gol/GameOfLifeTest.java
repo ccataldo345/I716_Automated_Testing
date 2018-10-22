@@ -12,7 +12,7 @@ public class GameOfLifeTest {
     // The good place to start is to be able to mark cells as alive.
     @Test
     public void cellIsAlive() {
-        Frame frame = new Frame(5, 5);
+        Frame frame = new Frame(8, 4);
         frame.markAlive(1,1);
         frame.markAlive(2,2);
 

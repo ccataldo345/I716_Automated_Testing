@@ -8,7 +8,7 @@ public class Frame {
 
 
 
-    public Frame(int width, int height) {
+    public Frame(int height, int width) {
         this.width = width;
         this.height = height;
         this.cell = new boolean[width][height];
@@ -22,13 +22,7 @@ public class Frame {
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                // transpose width / height
-                int tempI = i;
-                i = j;
-                j = tempI;
-                int tempJ = j;
-                j = i;
-                i = tempJ;
+
                 // print matrix, X if cell is true
                 graph = cell[i][j] ? " X " : " O ";
                 System.out.print(graph);
@@ -86,7 +80,7 @@ public class Frame {
         gol.markAlive(2,2);
         gol.toString();
         //System.out.println(gol.toString());
-        // System.out.println((Math.random() < 0.3));  //return true or false
+        System.out.println((Math.random() < 0.5));  //return true or false
 
     }
 }
