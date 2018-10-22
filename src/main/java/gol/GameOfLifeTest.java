@@ -2,16 +2,36 @@ package gol;
 
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("unused")
 public class GameOfLifeTest {
 
     // The good place to start is to be able to mark cells as alive.
+    @Test
+    public void cellIsAlive() {
+        Frame frame = new Frame(5, 5);
+        frame.markAlive(1,1);
+        frame.markAlive(2,2);
+
+        frame.toString();
+
+        Assert.assertTrue(frame.isAlive(1, 1));
+        Assert.assertTrue(frame.isAlive(2, 2));
+    }
 
     // Then it is possible to count alive neighbors.
+    @Test
+    public void countAliveNeighbours() {
+        Frame frame = new Frame(10, 10);
+        frame.markAlive(1,1);
+        frame.markAlive(2,1);
+        frame.markAlive(1,2);
+
+        Assert.assertThat(frame.getNeighbourCount(1, 1), is(2));
+    }
 
     // Then try to calculate next frame
     // (at first something very simple)

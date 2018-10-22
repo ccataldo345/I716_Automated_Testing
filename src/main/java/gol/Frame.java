@@ -2,15 +2,40 @@ package gol;
 
 public class Frame {
 
+    private boolean[][] cell;
+    private int width;
+    private int height;
+
+
+
     public Frame(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.cell = new boolean[width][height];
     }
 
     @Override
     public String toString() {
 
         // return string that representing the frame
+        String graph="";
 
-        return null;
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                // transpose width / height
+                int tempI = i;
+                i = j;
+                j = tempI;
+                int tempJ = j;
+                j = i;
+                i = tempJ;
+                // print matrix, X if cell is true
+                graph = cell[i][j] ? " X " : " O ";
+                System.out.print(graph);
+            }
+            System.out.println();
+        }
+        return "";
     }
 
     @Override
@@ -35,12 +60,12 @@ public class Frame {
     public boolean isAlive(int x, int y) {
 
         // True if cell with coordinates x and y is alive
-
-        return false;
+        return cell[x][y];
     }
 
     public void markAlive(int x, int y) {
         // Marks cell with coordinates x and y as alive
+        cell[x][y] = true;
     }
 
     public Frame nextFrame() {
@@ -55,4 +80,14 @@ public class Frame {
         return null;
     }
 
+    // CHRIS
+    public static void main(String[] args) {
+        Frame gol = new Frame(8, 4);
+        gol.markAlive(2,2);
+        gol.toString();
+        //System.out.println(gol.toString());
+        // System.out.println((Math.random() < 0.3));  //return true or false
+
+    }
 }
+
