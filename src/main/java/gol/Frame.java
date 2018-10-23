@@ -55,7 +55,11 @@ public class Frame {
                 }
             }
         }
-        return count-1;
+        if (cell[x][y]) {
+            count--;
+        }
+        // System.out.println(cell[x][y]);
+        return count;
     }
 
     public boolean isAlive(int x, int y) {

@@ -27,12 +27,13 @@ public class GameOfLifeTest {
     public void countAliveNeighbours() {
         Frame frame = new Frame(8, 4);
         frame.markAlive(0,0);
+        frame.markAlive(1,1);
         frame.markAlive(2,1);
         frame.markAlive(1,2);
 
         frame.toString();
 
-        Assert.assertThat(frame.getNeighbourCount(1, 1), is(2));
+        Assert.assertThat(frame.getNeighbourCount(1, 1), is(3));
     }
 
     // Then try to calculate next frame
