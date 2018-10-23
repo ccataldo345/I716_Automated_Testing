@@ -6,8 +6,6 @@ public class Frame {
     private int width;
     private int height;
 
-
-
     public Frame(int height, int width) {
         this.width = width;
         this.height = height;
@@ -18,13 +16,13 @@ public class Frame {
     public String toString() {
 
         // return string that representing the frame
-        String graph="";
+        String graph = "";
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int col = 0; col < width; col++) {
+            for (int row = 0; row < height; row++) {
 
                 // print matrix, X if cell is true
-                graph = cell[i][j] ? " X " : " O ";
+                graph = cell[col][row] ? " X " : " O ";
                 System.out.print(graph);
             }
             System.out.println();
@@ -47,8 +45,17 @@ public class Frame {
 
         // Returns cells neighbor count
         // Possible range is 0-8
-
-        return null;
+        int count = 0;
+        for (int row = -1; row <= 1; row++) {
+            int currentRow = row + y;
+            for (int col = -1; col <= 1; col++) {
+                int currentCol = col + x;
+                if (cell[currentRow][currentCol]) {
+                    count++;
+                }
+            }
+        }
+        return count-1;
     }
 
     public boolean isAlive(int x, int y) {
@@ -77,10 +84,10 @@ public class Frame {
     // CHRIS
     public static void main(String[] args) {
         Frame gol = new Frame(8, 4);
-        gol.markAlive(2,2);
+        gol.markAlive(2, 2);
         gol.toString();
         //System.out.println(gol.toString());
-        System.out.println((Math.random() < 0.5));  //return true or false
+        //System.out.println((Math.random() < 0.5));  //return true or false
 
     }
 }

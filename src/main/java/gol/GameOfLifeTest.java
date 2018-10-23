@@ -25,10 +25,12 @@ public class GameOfLifeTest {
     // Then it is possible to count alive neighbors.
     @Test
     public void countAliveNeighbours() {
-        Frame frame = new Frame(10, 10);
-        frame.markAlive(1,1);
+        Frame frame = new Frame(8, 4);
+        frame.markAlive(0,0);
         frame.markAlive(2,1);
         frame.markAlive(1,2);
+
+        frame.toString();
 
         Assert.assertThat(frame.getNeighbourCount(1, 1), is(2));
     }
