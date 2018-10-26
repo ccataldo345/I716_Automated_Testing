@@ -15,25 +15,31 @@ public class GameOfLifeTest {
         Frame frame = new Frame(8, 4);
         frame.markAlive(1,1);
         frame.markAlive(2,2);
+        frame.markAlive(7,3);
 
         frame.toString();
 
         Assert.assertTrue(frame.isAlive(1, 1));
         Assert.assertTrue(frame.isAlive(2, 2));
+        Assert.assertTrue(frame.isAlive(7, 3));
     }
 
     // Then it is possible to count alive neighbors.
     @Test
     public void countAliveNeighbours() {
         Frame frame = new Frame(8, 4);
-        frame.markAlive(0,0);
-        frame.markAlive(1,1);
+        frame.markAlive(1,1);   //corner cell
         frame.markAlive(2,1);
-        frame.markAlive(1,2);
+        frame.markAlive(2,2);
+        frame.markAlive(1,4);   //corner cell
+        frame.markAlive(8,4);   //corner cell
 
         frame.toString();
 
-        Assert.assertThat(frame.getNeighbourCount(1, 1), is(3));
+        Assert.assertThat(frame.getNeighbourCount(1, 1), is(2));
+        Assert.assertThat(frame.getNeighbourCount(1, 4), is(0));
+        Assert.assertThat(frame.getNeighbourCount(8, 4), is(0));
+
     }
 
     // Then try to calculate next frame

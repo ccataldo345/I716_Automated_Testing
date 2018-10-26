@@ -6,10 +6,10 @@ public class Frame {
     private int width;
     private int height;
 
-    public Frame(int height, int width) {
-        this.width = width;
-        this.height = height;
-        this.cell = new boolean[width][height];
+    public Frame(int width, int height) {
+        this.width = width +2;
+        this.height = height +2;
+        this.cell = new boolean[this.width][this.height];
     }
 
     @Override
@@ -18,15 +18,18 @@ public class Frame {
         // return string that representing the frame
         String graph = "";
 
-        for (int col = 0; col < width; col++) {
-            for (int row = 0; row < height; row++) {
+        // iterate through rows and columns, but exclude border
+        for (int row = 1; row < this.height-1; row++) {
+            for (int col = 1; col < this.width-1; col++) {
 
                 // print matrix, X if cell is true
                 graph = cell[col][row] ? " X " : " O ";
                 System.out.print(graph);
+                // System.out.print("(" + col  + "-" + row + "); ");
             }
             System.out.println();
         }
+        System.out.println(" ----------------------");
         return "";
     }
 
@@ -48,9 +51,11 @@ public class Frame {
         int count = 0;
         for (int row = -1; row <= 1; row++) {
             int currentRow = row + y;
+
             for (int col = -1; col <= 1; col++) {
                 int currentCol = col + x;
-                if (cell[currentRow][currentCol]) {
+
+                if (cell[currentCol][currentRow]) {
                     count++;
                 }
             }
