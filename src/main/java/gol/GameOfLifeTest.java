@@ -3,6 +3,7 @@ package gol;
 
 import static org.hamcrest.CoreMatchers.*;
 
+import org.apache.bcel.verifier.exc.AssertionViolatedException;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +14,9 @@ public class GameOfLifeTest {
     @Test
     public void cellIsAlive() {
         Frame frame = new Frame(8, 4);
-        frame.markAlive(1,1);
-        frame.markAlive(2,2);
-        frame.markAlive(7,3);
+        frame.markAlive(1, 1);
+        frame.markAlive(2, 2);
+        frame.markAlive(7, 3);
 
         frame.toString();
 
@@ -28,11 +29,11 @@ public class GameOfLifeTest {
     @Test
     public void countAliveNeighbours() {
         Frame frame = new Frame(8, 4);
-        frame.markAlive(1,1);   //corner cell
-        frame.markAlive(2,1);
-        frame.markAlive(2,2);
-        frame.markAlive(1,4);   //corner cell
-        frame.markAlive(8,4);   //corner cell
+        frame.markAlive(1, 1);   //corner cell
+        frame.markAlive(2, 1);
+        frame.markAlive(2, 2);
+        frame.markAlive(1, 4);   //corner cell
+        frame.markAlive(8, 4);   //corner cell
 
         frame.toString();
 
@@ -50,5 +51,20 @@ public class GameOfLifeTest {
 
     // It is strongly advised to use TDD.
     // It usually shows from the result whether TDD was used or not.
+
+    @Test
+    public void deadCellWithThreeNeighboursBecomesAlive() {
+        Frame frame = new Frame(8, 4);
+        frame.markAlive(2, 2);
+        frame.markAlive(2, 3);   //corner cell
+        frame.markAlive(3, 3);   //corner cell
+
+        frame.toString();
+        System.out.println(" Next frame:");
+        System.out.println(" -------------------------");
+        frame.nextFrame().toString();
+
+        Assert.assertTrue(frame.nextFrame().isAlive(3, 2));
+    }
 
 }

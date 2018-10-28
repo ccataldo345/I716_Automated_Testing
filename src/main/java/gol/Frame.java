@@ -7,8 +7,8 @@ public class Frame {
     private int height;
 
     public Frame(int width, int height) {
-        this.width = width +2;
-        this.height = height +2;
+        this.width = width + 2;
+        this.height = height + 2;
         this.cell = new boolean[this.width][this.height];
     }
 
@@ -19,15 +19,15 @@ public class Frame {
         String graph = "";
 
         // print columns number
-        for (int col = 0; col < this.width-1; col++) System.out.print(" " + col + " ");
+        for (int col = 0; col < this.width - 1; col++) System.out.print(" " + col + " ");
         System.out.println();
 
         // iterate through rows and columns, but exclude border
-        for (int row = 1; row < this.height-1; row++) {
-            for (int col = 1; col < this.width-1; col++) {
-                if(col == 1) System.out.print(" " + row + " "); // print rows number
+        for (int row = 1; row < this.height - 1; row++) {
+            for (int col = 1; col < this.width - 1; col++) {
+                if (col == 1) System.out.print(" " + row + " "); // print rows number
                 // print matrix, X if cell is true
-                graph = cell[col][row] ? " X " : " . ";
+                graph = cell[col][row] ? " ⬛ " : " ⬜ ";
                 System.out.print(graph);
                 // System.out.print("(" + col  + "-" + row + "); ");
             }
@@ -91,19 +91,31 @@ public class Frame {
         // and mark it in the new frame.
         // Return new frame.
 
-        return null;
+        Frame next = new Frame(this.width - 2, this.height - 2);
+
+        for (int row = 1; row < this.height - 1; row++) {
+            for (int col = 1; col < this.width - 1; col++) {
+                if (getNeighbourCount(col, row) == 3) {
+                    next.markAlive(col, row);
+                }
+            }
+        }
+        return next;
     }
 
     // CHRIS
     public static void main(String[] args) {
         Frame gol = new Frame(8, 4);
         gol.markAlive(2, 2);
+        gol.markAlive(2, 3);
+        gol.markAlive(3, 3);
         gol.toString();
+        gol.nextFrame().toString();
         //System.out.println(gol.toString());
         //System.out.println((Math.random() < 0.5));  //return true or false
-        System.out.println("Is 2-2 alive? >>> " + gol.isAlive(2,2));
-        System.out.println("How many neighbours has cell 1-1? >>> " + gol.getNeighbourCount(1,1));
-        System.out.println("How many neighbours has cell 2-2? >>> " + gol.getNeighbourCount(2,2));
+        System.out.println("Is 2-2 alive? >>> " + gol.isAlive(2, 2));
+        System.out.println("How many neighbours has cell 1-1? >>> " + gol.getNeighbourCount(1, 1));
+        System.out.println("How many neighbours has cell 2-2? >>> " + gol.getNeighbourCount(2, 2));
 
     }
 }
