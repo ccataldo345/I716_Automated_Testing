@@ -95,7 +95,7 @@ public class Frame {
 
         for (int row = 1; row < this.height - 1; row++) {
             for (int col = 1; col < this.width - 1; col++) {
-                if (getNeighbourCount(col, row) == 3) {
+                if (cell[col][row] == false && getNeighbourCount(col, row) == 3) {
                     next.markAlive(col, row);
                 }
             }
