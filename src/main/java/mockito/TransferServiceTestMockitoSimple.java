@@ -14,21 +14,33 @@ public class TransferServiceTestMockitoSimple {
 
     // BankService and TransferService are at the end of this file
 
+    private BankService mockBankService = mock(BankService.class);
+
     @Test
     public void transferSuccessScenario() {
         // ...
+        TransferService transferService = new TransferService(mockBankService);
+        when(mockBankService.getBalance("123")).thenReturn(1000);
+        transferService.transferMoney(10, "123", "456");
+        verify(mockBankService).transfer(10, "123", "456");
     }
 
     @Test
     public void transferringNegativeAmountFails() {
         // ...
+        TransferService transferService = new TransferService(mockBankService);
+        transferService.transferMoney(-1, "123", "456");
+        verify(mockBankService, never()).getBalance(anyString());
     }
 
     @Test
     public void transferFailsWhenNotEnoughFunds() {
         // ...
+        TransferService transferService = new TransferService(mockBankService);
+        when(mockBankService.getBalance("123")).thenReturn(5);
+        transferService.transferMoney(10, "123", "456");
+        verify(mockBankService, never()).transfer(anyInt(), anyString(), anyString());
     }
-
 }
 
 interface BankService {

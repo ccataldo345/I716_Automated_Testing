@@ -5,13 +5,20 @@ import common.Money;
 
 public class TestableBankService implements BankService {
 
+    private boolean withdrawCalled = false;
+    private Money money;
+    private String fromAccount;
+    private String toAccount;
+    public boolean areFundsAvailable = false;
+
     @Override
     public void withdraw(Money money, String fromAccount) {
         System.out.println("withdraw called with: " + money + " and " + fromAccount);
 
         // here the arguments (money and fromAccount) must be remembered
-
-        throw new IllegalStateException("not implemented yet");
+        withdrawCalled = true;
+        this.money = money;
+        this.fromAccount = fromAccount;
     }
 
     @Override
@@ -19,29 +26,33 @@ public class TestableBankService implements BankService {
         System.out.println("deposit called with: " + money + " and " + toAccount);
 
         // here the arguments (money and toAccount) must be remembered
-
-        throw new IllegalStateException("not implemented yet");
+        this.money = money;
+        this.toAccount = toAccount;
     }
 
     public boolean wasWithdrawCalledWith(Money money, String account) {
 
         // here you have to compare current arguments with the ones remembered
-
-        throw new IllegalStateException("not implemented yet");
+        if (money == null || account == null) {
+            return false;
+        } else if (money.equals(this.money) && account.equals(this.fromAccount));
+        return true;
     }
 
     public boolean wasDepositCalledWith(Money money, String account) {
 
         // here you have to compare current arguments with the ones remembered
-
-        throw new IllegalStateException("not implemented yet");
+        if (money == null || account == null) {
+            return false;
+        } else if (money.equals(this.money) && account.equals(this.toAccount));
+        return true;
     }
 
     @Override
     public Money convert(Money money, String targetCurrency) {
         if (money.getCurrency().equals(targetCurrency)) return money;
 
-        double rate = 1.0/10;
+        double rate = 1.0 / 10;
 
         return new Money((int) (money.getAmount() / rate), targetCurrency);
     }
@@ -49,9 +60,12 @@ public class TestableBankService implements BankService {
     @Override
     public String getAccountCurrency(String account) {
         switch (account) {
-            case "E_123": return "EUR";
-            case "S_456": return "SEK";
-            default: throw new IllegalStateException();
+            case "E_123":
+                return "EUR";
+            case "S_456":
+                return "SEK";
+            default:
+                throw new IllegalStateException();
         }
     }
 
@@ -63,13 +77,15 @@ public class TestableBankService implements BankService {
     public void setSufficientFundsAvailable(boolean areFundsAvailable) {
         // at the moment hasSufficientFundsFor() returns always true.
         // this method is for configuring how hasSufficientFundsFor() responds.
+        this.areFundsAvailable = areFundsAvailable;
     }
 
     public boolean wasWithdrawCalled() {
         // This method should say whether withdraw() method was called
         // (without considering arguments)
+        if (this.areFundsAvailable == false) return false;
 
-        throw new IllegalStateException("not implemented yet");
+        return withdrawCalled;
     }
 
 }
