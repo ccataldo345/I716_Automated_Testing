@@ -113,6 +113,10 @@ public class Frame {
                 if (cell[col][row] == true && getNeighbourCount(col, row) > 3) {
                     next.markDead(col, row);
                 }
+                // Any live cell with fewer than two live neighbors dies, as if caused by underpopulation
+                if (cell[col][row] == true && getNeighbourCount(col, row) < 2) {
+                    next.markDead(col, row);
+                }
             }
         }
         return next;
