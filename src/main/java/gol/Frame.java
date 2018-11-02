@@ -91,13 +91,20 @@ public class Frame {
         // and mark it in the new frame.
         // Return new frame.
 
+        System.out.println("Netx frame: \n");
         Frame next = new Frame(this.width - 2, this.height - 2);
 
         for (int row = 1; row < this.height - 1; row++) {
             for (int col = 1; col < this.width - 1; col++) {
+                // Any dead cell with exactly three live neighbors becomes a live cell
                 if (cell[col][row] == false && getNeighbourCount(col, row) == 3) {
                     next.markAlive(col, row);
                 }
+                // Any live cell with two or three live neighbors lives on to the next generation
+                if (cell[col][row] == true && (getNeighbourCount(col, row) == 2 || getNeighbourCount(col, row) == 3)) {
+                    next.markAlive(col, row);
+                }
+
             }
         }
         return next;
@@ -110,12 +117,15 @@ public class Frame {
         gol.markAlive(2, 3);
         gol.markAlive(3, 3);
         gol.toString();
-        gol.nextFrame().toString();
+
         //System.out.println(gol.toString());
         //System.out.println((Math.random() < 0.5));  //return true or false
         System.out.println("Is 2-2 alive? >>> " + gol.isAlive(2, 2));
         System.out.println("How many neighbours has cell 1-1? >>> " + gol.getNeighbourCount(1, 1));
         System.out.println("How many neighbours has cell 2-2? >>> " + gol.getNeighbourCount(2, 2));
+        System.out.println();
+
+        gol.nextFrame().toString();
 
     }
 }

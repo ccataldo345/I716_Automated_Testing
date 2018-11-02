@@ -58,15 +58,24 @@ public class GameOfLifeTest {
         frame.markAlive(2, 2);
         frame.markAlive(2, 3);
         frame.markAlive(3, 3);
-        // frame.markAlive(3, 2); this must be dead!
 
         frame.toString();
-        System.out.println(" Next frame:");
-        System.out.println(" -------------------------");
         frame.nextFrame().toString();
 
-        Assert.assertFalse(frame.isAlive(3, 2));
         Assert.assertTrue(frame.nextFrame().isAlive(3, 2));
+    }
+
+    @Test
+    public void aliveCellWithTwoOrThreeNeighboursRemainsAlive() {
+        Frame frame = new Frame(8, 4);
+        frame.markAlive(2, 2);
+        frame.markAlive(3, 1);
+        frame.markAlive(1, 3);
+
+        frame.toString();
+        frame.nextFrame().toString();
+
+        Assert.assertTrue(frame.nextFrame().isAlive(2, 2));
     }
 
 }
