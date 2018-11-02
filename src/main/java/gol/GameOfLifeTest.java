@@ -78,4 +78,19 @@ public class GameOfLifeTest {
         Assert.assertTrue(frame.nextFrame().isAlive(2, 2));
     }
 
+    @Test
+    public void aliveCellWithMoreThanThreeNeighboursDies() {
+        Frame frame = new Frame(8, 4);
+        frame.markAlive(2, 2);
+        frame.markAlive(3, 1);
+        frame.markAlive(1, 3);
+        frame.markAlive(3, 3);
+        frame.markAlive(1, 1);
+
+        frame.toString();
+        frame.nextFrame().toString();
+
+        Assert.assertFalse(frame.nextFrame().isAlive(2, 2));
+    }
+
 }

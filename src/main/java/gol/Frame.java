@@ -82,6 +82,11 @@ public class Frame {
         cell[x][y] = true;
     }
 
+    public void markDead(int x, int y) {
+        // Marks cell with coordinates x and y as alive
+        cell[x][y] = false;
+    }
+
     public Frame nextFrame() {
 
         // Returns next frame
@@ -104,7 +109,10 @@ public class Frame {
                 if (cell[col][row] == true && (getNeighbourCount(col, row) == 2 || getNeighbourCount(col, row) == 3)) {
                     next.markAlive(col, row);
                 }
-
+                // Any live cell with more than three live neighbors dies, as if by overcrowding
+                if (cell[col][row] == true && getNeighbourCount(col, row) > 3) {
+                    next.markDead(col, row);
+                }
             }
         }
         return next;
