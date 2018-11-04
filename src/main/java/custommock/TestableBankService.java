@@ -37,7 +37,7 @@ public class TestableBankService implements BankService {
         withdrawCalled = true;
         System.out.println("withdraw called with: " + money + " and " + fromAccount);
 
-        if (money == null || account == null) {
+        if (this.moneyWithdraw == null || this.fromAccount == null) {
             return false;
         }
 
@@ -50,7 +50,7 @@ public class TestableBankService implements BankService {
 
         // here you have to compare current arguments with the ones remembered
 
-        if (money == null || account == null) {
+        if (this.moneyDeposit == null || this.toAccount == null) {
             return false;
         }
 
