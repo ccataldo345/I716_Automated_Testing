@@ -23,6 +23,7 @@ public class TransferServiceTestMockitoSimple {
         when(mockBankService.getBalance("123")).thenReturn(1000);
         transferService.transferMoney(10, "123", "456");
         verify(mockBankService).transfer(10, "123", "456");
+
     }
 
     @Test

@@ -24,9 +24,11 @@ public class TransferServiceTest {
 
 
         assertTrue(bankService.wasWithdrawCalledWith(new Money(1, "EUR"), "E_123"));
+        assertFalse(bankService.wasWithdrawCalledWith(new Money(2, "EUR"), "E_123"));
         assertFalse(bankService.wasWithdrawCalledWith(null, null));
 
         assertTrue(bankService.wasDepositCalledWith(new Money(10, "SEK"), "S_456"));
+        assertFalse(bankService.wasDepositCalledWith(new Money(2, "SEK"), "S_456"));
         assertFalse(bankService.wasDepositCalledWith(null, null));
     }
 
