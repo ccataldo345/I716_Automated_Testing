@@ -96,7 +96,7 @@ public class Frame {
         // and mark it in the new frame.
         // Return new frame.
 
-        System.out.println("Netx frame: \n");
+        // System.out.println("Next frame: \n");
         Frame next = new Frame(this.width - 2, this.height - 2);
 
         for (int row = 1; row < this.height - 1; row++) {

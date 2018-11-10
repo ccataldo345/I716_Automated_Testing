@@ -23,6 +23,8 @@ public class GameOfLifeTest {
         Assert.assertTrue(frame.isAlive(1, 1));
         Assert.assertTrue(frame.isAlive(2, 2));
         Assert.assertTrue(frame.isAlive(7, 3));
+        Assert.assertFalse(frame.isAlive(4, 4));
+        Assert.assertFalse(frame.isAlive(10, 6));
     }
 
     // Then it is possible to count alive neighbors.
@@ -104,5 +106,19 @@ public class GameOfLifeTest {
 
         Assert.assertFalse(frame.nextFrame().isAlive(2, 2));
     }
+
+    /*
+    @Test
+    public void nextFrameIsEqual() {
+        Frame frame = new Frame(8, 4);
+        frame.markAlive(2, 2);
+        frame.markAlive(2, 3);
+        frame.markAlive(3, 2);
+        frame.markAlive(3, 3);
+
+        Assert.assertThat(frame, is(frame.nextFrame()) );
+    }
+    */
+
 
 }
