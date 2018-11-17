@@ -21,43 +21,47 @@ public class OrderServiceTest {
     @Test
     public void shouldFindOrdersOverOverCertainAmount() {
         assertThat(amountsAsString(service.getOrdersOver(100.0)),
-                   is("N124, N125"));
+                   is("290.0, 1025.0"));
     }
 
     @Test
     public void shouldFindOrdersSortedByDate() {
         assertThat(datesAsString(service.getOrdersSortedByDate()),
-                   is("N124, N125, N123"));
+                   is("1991-10-06, 2000-07-06, 2013-11-21"));
     }
 
     private String numbersAsString(List<Order> filledOrders) {
         // return "not implemented";
 
-        List<String> orders = new ArrayList<>();
+        List<String> ordersNumber = new ArrayList<>();
         for(Order order: filledOrders) {
-            orders.add(order.getNumber());
+            ordersNumber.add(order.getNumber());
         }
-        return String.join(", ", orders);
+        return String.join(", ", ordersNumber);
     }
 
     private String amountsAsString(List<Order> filledOrders) {
         // return "not implemented";
 
-        List<String> orders = new ArrayList<>();
+        List<String> ordersAmount = new ArrayList<>();
         for(Order order: filledOrders) {
-            orders.add(order.getNumber());
+            ordersAmount.add(String.valueOf(order.getTotal()));
         }
-        return String.join(", ", orders);
+        return String.join(", ", ordersAmount);
     }
 
     private String datesAsString(List<Order> filledOrders) {
         // return "not implemented";
 
-        List<String> orders = new ArrayList<>();
+        List<String> ordersDate = new ArrayList<>();
         for(Order order: filledOrders) {
-            orders.add(order.getNumber());
+            ordersDate.add(asString(order.getOrderDate()));
+            // doesn't work with String.valueOf, returns the standard date format,
+            // so used static String asString(Date date) method
         }
-        return String.join(", ", orders);
+
+        System.out.println(ordersDate);
+        return String.join(", ", ordersDate);
     }
 
     private OrderService getOrderService() {

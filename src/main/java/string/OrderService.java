@@ -50,9 +50,12 @@ public class OrderService {
 
         List<Order> orders = dataSource.getOrders();
 
-        orders.sort(Comparator.comparing(Order::getOrderDate));
+        for (Order order : orders) {
+                filledOrders.add(order);
+        }
+        filledOrders.sort(Comparator.comparing(Order::getOrderDate));
         // ref: https://stackoverflow.com/questions/16252269/how-to-sort-an-arraylist
 
-        return orders;
+        return filledOrders;
     }
 }
