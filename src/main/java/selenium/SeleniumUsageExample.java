@@ -40,6 +40,20 @@ public class SeleniumUsageExample {
         return elements.isEmpty() ? null : elements.get(0);
     }
 
+    @Test
+    public void showsHowToUseSelenium_LogOut() {
+
+        driver.get("http://enos.itcollege.ee/~mkalmo/selenium");
+
+        elementById("username_box").sendKeys("user");
+        elementById("password_box").sendKeys("1");
+
+        elementById("log_in_button").click();
+
+        //elementById("log_out_button").click();
+        elementById("log_out_link").click();
+    }
+
     @AfterEach
     public void closeDriver() {
         driver.close();

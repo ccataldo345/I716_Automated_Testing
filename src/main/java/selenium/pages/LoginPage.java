@@ -14,17 +14,29 @@ public class LoginPage extends AbstractPage {
 
     public LoginPage logInExpectingFailure(String user, String pass) {
 
+        // can take samples from SeleniumUsageExample
         // insert user name
+
+        elementById("username_box").sendKeys(user);
+
         // insert password
+
+        elementById("password_box").sendKeys(pass);
+
         // click login button
 
-        // sample from SeleniumUsageExample
+        elementById("log_in_button").click();
 
         return new LoginPage(driver);
     }
 
     public MenuPage logIn(String user, String pass) {
-        return null;
+
+        elementById("username_box").sendKeys(user);
+        elementById("password_box").sendKeys(pass);
+        elementById("log_in_button").click();
+
+        return new MenuPage(driver);
     }
 
     public String getErrorMessage() {
