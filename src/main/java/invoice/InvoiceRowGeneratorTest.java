@@ -1,17 +1,21 @@
 package invoice;
 
+import org.apache.xalan.templates.ElemValueOf;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatcher;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import sun.awt.SunHints;
 
 import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class InvoiceRowGeneratorTest {
@@ -19,31 +23,33 @@ public class InvoiceRowGeneratorTest {
     @Mock InvoiceRowDao dao;
 
     @Test
-    public void dateTestThatNeedsABetterName() {
+    public void amountInTwoInstallments_verifyGeneratorProducesTwoRows() {
 
         BigDecimal amount = new BigDecimal(100);
         LocalDate periodStart = asDate("2017-01-01");
-        LocalDate periodEnd = asDate("2017-02-02");
+        // LocalDate periodEnd = asDate("2017-02-02");
+        LocalDate periodEnd = asDate("2017-02-10");
 
-        // InvoiceRowGenerator generator = new InvoiceRowGenerator();
+        InvoiceRowGenerator generator = new InvoiceRowGenerator(dao);
 
-        // call generator.generateInvoiceRows(amount, periodStart, periodEnd);
+        generator.generateInvoiceRows(amount, periodStart, periodEnd);
 
-        // check that it produced two rows with dates 2017-01-01 and 2017-02-01
-    }
+        // check that it produced two rows with dates 2017-01-01 and 2017-02-01 >>> NO
+        //CC check that it produced two rows with dates 2017-01-10 and 2017-02-10
 
-    @Test
-    public void amountTestThatNeedsABetterName() {
+        // Which data would be written to the database that can be
+        // tested by checking the calls and arguments to the mocked
+        // InvoiceRowDao.save() method.
 
-        BigDecimal amount = new BigDecimal(11);
-        // LocalDate periodStart = ...
-        // LocalDate periodEnd = ...
+        dao.save(new InvoiceRow(amount, periodStart));
+        dao.save(new InvoiceRow(amount, periodEnd));
 
-        // InvoiceRowGenerator generator = new InvoiceRowGenerator();
+        //verify(dao).save(argThat(row -> row.amount.intValue() == 100));
 
-        // call generator.generateInvoiceRows(amount, periodStart, periodEnd);
+        //verify(dao).save(getMatcherForAmount(100));
 
-        // check that it produced three rows with amounts 3, 4 and 4
+        //verify(dao).save(getMatcherForAmountWithMessage(100));
+
     }
 
     @Test
@@ -55,6 +61,143 @@ public class InvoiceRowGeneratorTest {
         verify(dao).save(getMatcherForAmount(1));
 
         verify(dao).save(getMatcherForAmountWithMessage(1));
+    }
+
+    // CC TESTS:
+
+    @Test
+    public void periodStartsOn10th_verifyFirstInstallmentDateIsOn10th() {
+
+        // test 01
+        BigDecimal amount = new BigDecimal(10);
+        LocalDate periodStart = asDate("2017-01-10");
+        LocalDate periodEnd = asDate("2017-02-10");
+        InvoiceRowGenerator generator = new InvoiceRowGenerator(dao);
+
+        generator.generateInvoiceRows(amount, periodStart, periodEnd);
+
+    }
+
+    @Test
+    public void periodStartsAfter10th_verifyFirstInstallmentDateIsOnPeriodStart() {
+
+        // test 02
+        BigDecimal amount = new BigDecimal(10);
+        LocalDate periodStart = asDate("2017-01-11");
+        LocalDate periodEnd = asDate("2017-02-10");
+        InvoiceRowGenerator generator = new InvoiceRowGenerator(dao);
+
+        generator.generateInvoiceRows(amount, periodStart, periodEnd);
+
+    }
+
+    @Test
+    public void periodStartsBefore10th_verifyFirstInstallmentDateIsOn10th() {
+
+        // test 03
+        BigDecimal amount = new BigDecimal(10);
+        LocalDate periodStart = asDate("2017-01-09");
+        LocalDate periodEnd = asDate("2017-02-10");
+        InvoiceRowGenerator generator = new InvoiceRowGenerator(dao);
+
+        generator.generateInvoiceRows(amount, periodStart, periodEnd);
+
+    }
+
+    @Test
+    public void periodEndsBefore10th_verifyNoInstallmentInPeriodEndMonth() {
+
+        // test 04
+        BigDecimal amount = new BigDecimal(10);
+        LocalDate periodStart = asDate("2017-01-10");
+        LocalDate periodEnd = asDate("2017-02-09");
+        InvoiceRowGenerator generator = new InvoiceRowGenerator(dao);
+
+        generator.generateInvoiceRows(amount, periodStart, periodEnd);
+
+    }
+
+    @Test
+    public void periodSpansOverYearBoundary_verifyNoBugsInPayments() {
+
+        // test 05
+        BigDecimal amount = new BigDecimal(10);
+        LocalDate periodStart = asDate("2017-12-01");
+        LocalDate periodEnd = asDate("2018-02-10");
+        InvoiceRowGenerator generator = new InvoiceRowGenerator(dao);
+
+        generator.generateInvoiceRows(amount, periodStart, periodEnd);
+
+    }
+
+    @Test
+    public void amountDividesEqually() {
+
+        // test 06
+        BigDecimal amount = new BigDecimal(9);
+        LocalDate periodStart = asDate("2017-01-10");
+        LocalDate periodEnd = asDate("2017-03-10");
+        InvoiceRowGenerator generator = new InvoiceRowGenerator(dao);
+
+        generator.generateInvoiceRows(amount, periodStart, periodEnd);
+
+    }
+
+    @Test
+    public void amountNotDividesEqually_verifyReminderIsAddedToLastInstallment() {
+
+        // test 07
+        BigDecimal amount = new BigDecimal(7);
+        LocalDate periodStart = asDate("2017-01-10");
+        LocalDate periodEnd = asDate("2017-02-10");
+        InvoiceRowGenerator generator = new InvoiceRowGenerator(dao);
+
+        generator.generateInvoiceRows(amount, periodStart, periodEnd);
+
+        // check that produced 2 rows with amounts 3 and 4
+
+    }
+
+    @Test
+    public void amountNotDivideEqually_verifyReminderIsDividedBetweenLastInstallments() {
+
+        // test 08
+        BigDecimal amount = new BigDecimal(11);
+        LocalDate periodStart = asDate("2017-01-10");
+        LocalDate periodEnd = asDate("2017-03-10");
+        InvoiceRowGenerator generator = new InvoiceRowGenerator(dao);
+
+        generator.generateInvoiceRows(amount, periodStart, periodEnd);
+
+        // check that produced three rows with amounts 3, 4 and 4
+    }
+
+    @Test
+    public void installmentMustBeAtLeast3Euro_verifySmallerInstallmentsAreNotPayed() {
+
+        // test 09
+        BigDecimal amount = new BigDecimal(6);
+        LocalDate periodStart = asDate("2017-01-10");
+        LocalDate periodEnd = asDate("2017-03-10");
+        InvoiceRowGenerator generator = new InvoiceRowGenerator(dao);
+
+        generator.generateInvoiceRows(amount, periodStart, periodEnd);
+
+        // check that produced 2 rows with amounts 3 and 3
+    }
+
+    @Test
+    public void paymentIsLessThan3Euros_verifyTheOnlyInstallmentIsEqualToPayment() {
+
+        // test 10
+        BigDecimal amount = new BigDecimal(11);
+        LocalDate periodStart = asDate("2017-01-10");
+        LocalDate periodEnd = asDate("2017-03-10");
+        InvoiceRowGenerator generator = new InvoiceRowGenerator(dao);
+
+        generator.generateInvoiceRows(amount, periodStart, periodEnd);
+
+        // check that produced 1 row with amount 2
     }
 
     @BeforeEach

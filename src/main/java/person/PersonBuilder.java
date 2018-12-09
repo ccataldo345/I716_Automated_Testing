@@ -10,8 +10,10 @@ public class PersonBuilder {
     public PersonBuilder withAge(int age) {
         // throw new IllegalStateException("not implemented");
         this.age = age;
-        // System.out.println(this);    // return object
+        // System.out.println(this);    // return object (not readable)
         // System.out.println(this.age);    // return age of object
+        // System.out.println(this.toString());
+        // >>> return object (human readable)(see override method toString() at the bottom)
         return this;
     }
 
@@ -34,4 +36,8 @@ public class PersonBuilder {
         return person;
     }
 
+    @Override
+    public String toString() {
+        return name + ", " + age + ", " + gender + ", " + address;
+    }
 }
