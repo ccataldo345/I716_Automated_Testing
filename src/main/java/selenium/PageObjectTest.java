@@ -1,8 +1,10 @@
 package selenium;
 
 import org.junit.jupiter.api.Test;
+import selenium.pages.FormPage;
 import selenium.pages.LoginPage;
 import selenium.pages.MenuPage;
+import selenium.pages.ListPage;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -52,6 +54,30 @@ public class PageObjectTest {
 
         // assertThat(... contains info message;
         assertThat(loginPage.getInfoMessage(), is("Logged out!"));
+    }
+
+    @Test
+    public void userListContainsCorrectUsernameAndPassword() {
+        LoginPage loginPage = LoginPage.goTo();
+        MenuPage menuPage = loginPage.logIn(USERNAME, CORRECT_PASSWORD);
+
+        ListPage listPage = menuPage.goToUserListPage();
+        System.out.println(listPage.showAllUsers());
+
+        assertThat(listPage.showAllUsers().contains("<div username=\"user\" password=\"1\">"), is(true));
+    }
+
+    @Test
+    public void addNewUser_verifyIsAddedToUserList() {
+        LoginPage loginPage = LoginPage.goTo();
+        MenuPage menuPage = loginPage.logIn(USERNAME, CORRECT_PASSWORD);
+
+        FormPage formPage = menuPage.goToAddUserPage();
+        formPage.addNewUser("user2", "2");
+        ListPage listPage = menuPage.goToUserListPage();
+        System.out.println(listPage.showAllUsers());
+
+        assertThat(listPage.showAllUsers().contains("user2"), is(true));
     }
 
 }
