@@ -1,0 +1,5 @@
+TDD
+
+Solve the same problem that was solved in the lecture. Write tests and 
+code for a program that divides text to lines with certain length.
+

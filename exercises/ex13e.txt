@@ -1,0 +1,5 @@
+Prime factors
+
+Solve the same problem that was solved in the lecture. Write tests and 
+code for a program that finds prime factors of a number.
+

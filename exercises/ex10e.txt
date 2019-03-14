@@ -1,0 +1,24 @@
+Exercise Lesson 10
+
+Necessary code is in directory src/main/java/mockito.
+
+Make the tests in the mockito.TransferServiceTestMockito class pass.
+ 
+  We would like to test TransferService.transfer() method. We think that 
+  it is correct and we are not going to modify it. As this method does 
+  not return anyting we can't use return value to decide whether it is correct.
+  
+  TransferService.transfer() depends on BankService but we don't have it yet.
+
+  The solution is to use BankService mock that returns fixed values 
+  (behaves as a stub) and also tells us which methods were called.
+
+  a. Teach BankService mock how it should respond when methods getAccountCurrency(), 
+     convert(), hasSufficientFundsFor() are called with different arguments.
+     
+     If this done then verify(bankService).withdraw on line 32 should pass.
+ 
+  b. Verify that deposit() method was also called with the correct arguments.
+
+  c. Write a test for the scenario when there are not enough money to 
+     make the transfer (test transferWhenNotEnoughFunds()).

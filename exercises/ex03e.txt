@@ -1,0 +1,33 @@
+Exercise 3
+
+Write class RpnCalculator (RPN - Reverse Polish Notation). 
+Before writing code, write test for that code. 
+Try to not write any code before you have test for it.
+
+Graphical example of an RPN calculator: http://www.alcula.com/calculators/rpn/
+
+Methods of the calculator:
+  int getAccumulator() - returns the value from accumulator
+  void setAccumulator(int number) - sets the accumulators value
+  void enter() - pushes accumulators value onto the stack
+  void plus() - removes topmost element from stack and adds its value to the accumulator
+
+Write tests at least for the following cases:
+
+1. Create calculator and assert that accumulator is 0
+2. Check that it is possible to set the accumulator
+3. Check that calculator calculates correctly 1 + 2 = 3
+
+Sample test:
+
+    @Test
+    public void calculatorSupportsAddition() {
+        RpnCalculator c = new RpnCalculator();
+        c.setAccumulator(1);
+        c.enter();
+        
+        c.setAccumulator(2);
+        c.plus();
+        
+        assertThat(c.getAccumulator(), is(3));
+    }

@@ -1,0 +1,19 @@
+Page Objects I
+
+Necessary code is in directory src/main/java/selenium.
+
+The application to test: http://enos.itcollege.ee/~mkalmo/selenium
+
+Make the tests in selenium.PageObjectTest pass.
+
+1. loginFailsWithFalseCredentials() - checks that it is not possible to 
+   log in with wrong credentials.
+
+2. loginSucceedsWithCorrectCredentials() - checks that it is possible to 
+   log in with correct credentials (user:1).
+
+3. canLogOut() - checks that clicking logout link takes to login page 
+   and shows log out success message.
+
+Everything that is related to Selenium goes to Page Objects and tests 
+do not have any references to Selenium.

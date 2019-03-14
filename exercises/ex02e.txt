@@ -1,0 +1,33 @@
+Exercise Lesson 2
+
+Due on 12. September 22:00
+Mark commit with tag ex02
+
+Write a code and unit tests for the class Stack. Write the tests before the code itself.
+Not all the tests at once, but start from a test, then wite code to 
+make the test pass, then next test and so on.
+
+Operations for the class Stack:
+
+void push(Integer i) - adds an argument to the stack
+Integer pop() - removes the topmost element and returns it
+Integer peek() - returns the topmost element
+Integer size() - returns the element count on the stack. 
+
+As an internal data structure use Integer array ((Integer[]).
+The size of the array could be specified in the constructor.
+
+Test at least the following cases:
+
+- create stack and check that it is empty (has zero elements).
+- create stack, push two elements and check that it contains two elements (size is 2).
+- create stack, push two elements, pop two elements and check that it contains zero elements.
+- create stack, push two elements, pop two elements and check that these are the elemets pushed before and the order is correct.
+- create stack, push two elements, peek at the topmost element and check that it is the last one pushed.
+- create stack, push two elements, peek at the topmost element and check that the stack contains two elements.
+- create stack, pop one element and check that stack throws IllegalStateException.
+- create stack, peek at the topmost element and check that stack throws IllegalStateException.
+
+The first test:
+
+https://bitbucket.org/mkalmo/i398/src/master/src/main/java/stack/StackTest.java

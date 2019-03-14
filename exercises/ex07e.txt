@@ -1,0 +1,77 @@
+Exercise Lesson 7
+
+Necessary code is in directory src/main/java/refactoring.
+
+Mark your work with tag ex07.
+
+Info about the names (eg. "Extract Method"): http://refactoring.com/catalog/
+
+1a. "Rename Method", the name is misleading considering what the method does.
+
+    To change a name in IDEA: put the cursor on the method name and select 
+    Refactor -> Rename from the menu or press Shift + F6.
+
+1b. "Rename Method", the name is misleading considering what the method does.
+    The name should stress that the result is put into the argument that 
+    is passed in.
+
+2a. "Extract Method" and remove redundant comment
+    Select the code that should go into its own method and select 
+      Refactor -> Extract -> Method from menu or press Ctrl + Alt + M
+    
+    
+2b. "Extract Method" and remove duplication
+    - Create method that creates html tags from text.
+      eg. createTag("li", "hello"); returns <li>hello</li>
+    - We could make a list of items and go over them with a loop (Arrays.asList(item1, item2, ...).
+    - Check that RefactoringTests.getsItemsAsHtml() still passes after you are done.
+
+3. "Inline Temp"
+
+4. "Replace Temp with Query", "Replace Magic Number with Symbolic Constant"
+
+5. "Extract Variable"
+   The comment gives a hint for the name(s).
+
+6. "Decompose Conditional"
+   Select the part that goes into its own method and select Refactor -> Extract -> Method
+
+7. "Introduce Parameter Object"
+   You have to change the signature of Space.drawLine method. Try to reduce the number of parameters.
+   Those six numbers represent start and end points for the line.
+   
+   Put the cursor onto method signature and select 
+     Refactor -> Extract -> Parameter Object from menu   
+
+8. (Optional) Remove selector argument
+   Here we have two methods on top of each other. 
+   The selector argument (boolean overtime) determines which one is executed.   
+   
+   overtime == false - the pay is the same for overtime
+   overtime == true - the pay for overtime is 1.5 times of the normal rate
+   
+   Split the method into two.
+   
+   Steps:
+     1. Make two copies of the method:
+        calculateWeeklyPayWithOvertime(int hoursWorked) 
+          and
+        calculateWeeklyPayWithoutOvertime(int hoursWorked).
+        
+        The overtime argument is removed but the method body still uses it.
+        To make the new methods compile and work the same, declare the 
+        variable in the beginning of a method instead.
+        
+        eg.
+        
+        calculateWeeklyPayWithOvertime(int hoursWorked) {
+           boolean overtime = true;
+           
+           ...
+        }
+        
+     2. Make the tests (in RefactoringTests) to check the new methods as well.
+     3. As the variable overtime does not change any more, it is 
+        possible to simplify both methods.
+     4. Delete the old method and its invocations from the tests.
+     

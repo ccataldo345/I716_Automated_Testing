@@ -1,0 +1,65 @@
+Individual Exercise 2
+
+Write program that generates installments and saves them into database.
+Input is amount and period to which the amount sould be divided and the 
+result is rows in a database.
+
+You can decide yourself which classes and methods to use. Important is that
+the saving to the database is done through InvoiceRowDao interface.
+
+You should not use a real database. To mock out database dependency use 
+Mockito framework. Which data would be written to the database can be 
+tested by checking the calls and arguments to the mocked InvoiceRowDao.save() method.
+
+Necessary code is in directory src/main/java/invoice
+
+Division into installments is done by the following rules:
+  - payments will be on 10th day of month;
+  - if period starts after 10th day payment will be on the first day of the period;
+  - if period ends before 10th day there will be no payment in that month;
+  - there are no more than one payment in each month;
+  - the minimal unit is 1 Euro; if the amount does not divide equally 
+    then the remainder will be added to the payments in the end;
+  - minimum payment is 3 Euros.
+
+E.g. if the amount is 10 Euros and period is from 2017-02-11 to 2017-04-11,
+then there will be the following installments (date - amount):
+
+  2017-02-11 - 3 Euros
+  2017-03-10 - 3 Euros
+  2017-04-10 - 4 Euros (remainder goes to the last installment)
+
+At least the following cases must be tested:
+
+  1. period starts with 10th
+      2017-01-10 to 2017-02-10 -> 2017-01-10, 2017-02-10
+  
+  2. period starts after 10th
+      2017-01-11 to 2017-02-10 -> 2017-01-11, 2017-02-10
+
+  3. period starts before 10th
+      2017-01-09 to 2017-02-10 -> 2017-01-10, 2017-02-10
+      
+  4. period ends before 10th
+      2017-01-10 to 2017-02-09 -> 2017-01-10
+      
+  5. period spans over year boundary
+      2017-12-01 to 2018-02-10 -> 2017-12-10, 2018-01-10, 2018-02-10
+      
+  6. amount divides equally
+      9 divided between 3 installments -> 3, 3, 3
+
+  7. does not divide equally (reminder is added to the last installment)
+      7 divided between 2 installments -> 3, 4
+  
+  8. does not divide equally (reminder is divided between last installments)
+      11 divided between 3 installments -> 3, 4, 4
+  
+  9. installment would be smaller that 3 Euros (period is too short)
+      6 divided between 3 installments -> 3, 3
+
+  10. the amount is less that 3 Euros (there will be just one installment with that amount)
+      2 divided between 2 installments -> 2
+
+The tests for dates (tests 1-5) should not check amounts and the tests 
+for amounts (tests 6-10) should not check dates.

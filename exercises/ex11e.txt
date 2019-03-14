@@ -1,0 +1,21 @@
+Exercise Lesson 11
+
+Necessary code is in directory src/main/java/string.
+
+The purpose of the exercise is to use transforming results pattern.
+(http://mkalmo.xyz/i716/slides/at10e.pdf lk 14-20).
+
+To make tests in string.OrderServiceTest pass, you need to write implementations
+for the methods in OrderService class and helper methods that transform the results.
+
+Specifications for the OrderService methods:
+
+  List<Order> getFilledOrders()
+      - returns orders on which isFilled() returns true.
+
+  List<Order> getOrdersOver(double amount)
+      - returns orders on which getTotal() is over the value provided (amount argument).
+
+  List<Order> getOrdersSortedByDate()
+       - returns all orders sorted by date
+       To convert date objects to string use method OrderServiceTest.asString(Date date).

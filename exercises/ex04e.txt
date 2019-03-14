@@ -1,0 +1,30 @@
+Exercise 4
+
+Write a class RpnCalculator (RPN - Reverse Polish Notation). 
+Before writing the code, write a test for that code. 
+Try to not write any code before you have test for it.
+
+Graphical example of an RPN calculator: http://www.alcula.com/calculators/rpn/
+
+Methods of the calculator
+  int getAccumulator() - returns the value from the accumulator.
+  void setAccumulator(int number) - sets the accumulator's value.
+  void enter() - pushes accumulator's value onto the stack.
+  void plus() - removes the topmost element from the stack and adds its value to the accumulator.
+  void minus() - removes the topmost element from the stack and substracts accumulator's value from it.
+                 puts the result into the accumulator.
+  void multiply() - removes the topmost element from the stack and multiplies accumulator's value with it.
+  int evaluate(String expression) - takes an expression in string form and returns the result as an integer.
+
+
+Write tests at least for the following cases:
+
+1. Create calculator and assert that accumulator is 0
+2. Check that it is possible to set the accumulator
+3. Check that calculator calculates correctly 1 + 2 = 3
+4. Check that calculator calculates correctly 3 - 1 = 2
+5. Check that calculator calculates correctly (1 + 2) * 4 = 12
+6. Check that calculator calculates correctly (4 + 3) * (2 + 1) = 21
+7. Check that calculator calculates correctly "5 1 2 + 4 * + 3 +"  -> 20
+
+Annotate your work with tag ex04.

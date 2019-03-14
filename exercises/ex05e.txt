@@ -1,0 +1,37 @@
+Exercise Lesson 5
+
+Mark commit with tag ex05.
+
+Necessary code is in package src/main/java/sql.
+
+SqlBuilder.java is a class for constructing sql statements.
+
+If we want to construct sql statements dynamically in code then the 
+naive approach would be:
+
+  String column = "name"; // dynamic field name
+  String table = "person"; // dynamic table name
+  
+  String sql = "select " + column + " from" + table;
+  
+               // the result would be "select name from person";
+
+When the statements become more complecated the naive approach is hard to 
+maintain and the following approach would be better.
+
+  SelectBuilder builder = new SelectBuilder();
+  builder.column(column);  // dynamic field name
+  builder.from(table);     // dynamic table name
+  
+  String sql = b.getSql();
+
+              // the result would be "select name from person";
+
+
+SqlBuilderTest.java contains tests for SelectBuilder class.
+
+Implement methods in SqlBuilder.java so that tests 1-4 will pass 
+(test 5-9 are for the next exercise lesson)
+
+Try to come up with descriptive names for the tests. Remember that test 
+names should serve as a documentation for our code.

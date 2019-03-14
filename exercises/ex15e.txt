@@ -1,0 +1,8 @@
+Page Objects II
+
+Add the following test cases to the Selenium exercise (last lecture).
+
+  1. Check that user list page contains user with username "user" 
+     and password "1".
+  
+  2. Add a new user and check that it is added to the list.

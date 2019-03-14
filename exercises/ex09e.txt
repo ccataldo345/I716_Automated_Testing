@@ -1,0 +1,19 @@
+Exercise Lesson 9
+
+Necessary code is in directory src/main/java/custommock and src/main/java/mockito.
+
+Exercise 1 - Mocks Without Framework
+
+   a) Make custommock.TransferServiceTest.transfersWithCurrencyConversion() test pass.
+      To accomplish this you have to finish TestableBankService mock, 
+      which is being used for testing TransferService.
+
+   b) Make custommock.TransferServiceTest.doesNotTransferWhenNoFounds() test pass.
+      To accomplish this you have to make it so that it is possible to 
+      specify whether there is enough money on the account. 
+   
+Exercise 2 - Introduction to Mockito Framework
+
+  Look over the Mockito framework examples from the lecture. And be sure 
+  that you understand how they work. Write content to the tests in the 
+  mockito.TransferServiceTestMockitoSimple class.

@@ -1,0 +1,66 @@
+Exercise 1 (deadline 5. September 22:00)
+
+NB! It is recommended to read the text carefully, so that you can get it 
+right the first time. Fixing the errors later could take much more time. 
+
+1. Create bitbucket.org account if you don’t have it already.
+
+2. Fork repository https://bitbucket.org/mkalmo/i398 naming you fork i716. 
+   Check that your repository is private.
+
+3. Share the project with user mkalmo:
+   Settings -> User and group access
+   Add user mkalmo to "Users" list ("read" access).
+
+4. Add Git hook
+
+   Settings -> Webhooks -> Add webhook
+
+   Fill these fields:
+
+     Title: <some title>
+     URL: http://mkalmo.xyz/ci/i716/api/notify
+
+4. Import project into IDE (e.g. IDEA).
+   In IDEA click on "Add as Maven Project" in right bottom corner.
+
+5. Open file info.json and fill in the missing info.
+
+  "firstName": "<Your first name>",
+  "lastName": "<Your other name(s)>",
+  "passwordHash": "<sha256 hash for the new password>"
+
+   You can calculate the hash on those pages:
+   
+   http://www.xorbin.com/tools/sha256-hash-calculator 
+   or
+   https://passwordsgenerator.net/sha256-hash-generator/
+
+   For example:
+   
+   {
+     "firstName": "Märt",
+     "lastName": "Kalmo",
+     "passwordHash": "7ac6b2736f34fce19d6b804eff5a1f5747ada4eaa22f1d49c01e52ddb7875b47"
+   }
+
+6. Commit the changes.
+
+7. Push the changes into BitBucket.
+
+8. Add tag ex01 to the last commit.
+   Commits -> click on last commit -> There is a plus symbol on the page for adding tags.
+   
+9. Check that you can log in to https://mkalmo.xyz/ci/i716.
+   User: username for bitbucket.org account
+   Password: password that you chose in step 5.
+
+NB! If you can’t log in check that:
+    - repository name for your fork is i716
+    - you can see that from bitbucket.org that the correct commit has tag ex01
+    - Check that you shared the repository with user mkalmo.
+    - Be sure that you are using the right credentials for logging in (step 9)
+    - Under webhooks it is possible to see notification requests. 
+      Check that notification was sent and the request was successful.
+  
+If you wish to change the password then you can write new hash to info.json file and push the changes.

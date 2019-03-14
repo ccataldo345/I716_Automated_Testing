@@ -1,0 +1,11 @@
+Exercise Lesson 6
+
+Mark commit with tag ex06.
+
+Necessary code: src/main/java/sql.
+
+Continue with the last lecture's exercises and implement methods in 
+SelectBuilder.java so that tests 5-9 will pass.
+
+Try to come up with descriptive names for the tests. Remember that test 
+names should serve as a documentation for our code.

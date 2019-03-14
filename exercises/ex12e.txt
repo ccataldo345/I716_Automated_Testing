@@ -1,0 +1,12 @@
+Test Data Builder pattern
+
+Necessary code is in directory src/main/java/person
+
+Complete the code in person.PersonUtil, person.PersonUtilTest and person.PersonBuilder classes.
+
+The class being tested is person.PersonUtil with methods:
+
+   getOldest(List<Person> persons) - returns the oldest person from input list.
+   getPersonsInLegalAge(List<Person> persons) - returns all the persons who are at least 18 years old.
+   getWomen(List<Person> persons) - returns all the persons with gender Person.GENDER_FEMALE
+   getPersonsWhoLiveIn(String town, List<Person> persons) - returns persons who live in the specified town.
