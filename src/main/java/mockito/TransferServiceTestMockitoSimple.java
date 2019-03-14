@@ -41,6 +41,7 @@ public class TransferServiceTestMockitoSimple {
         when(mockBankService.getBalance("123")).thenReturn(5);
         transferService.transferMoney(10, "123", "456");
         verify(mockBankService, never()).transfer(anyInt(), anyString(), anyString());
+        //verify(mockBankService, never()).transfer(0, "123", "456");
     }
 }
 
